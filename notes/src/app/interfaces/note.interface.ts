@@ -3,4 +3,5 @@ export interface Note{
   note: string;
   date: Date;
   complete: boolean;
+  hover: boolean;
 }

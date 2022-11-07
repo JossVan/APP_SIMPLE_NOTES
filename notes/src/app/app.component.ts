@@ -13,7 +13,8 @@ export class AppComponent {
     id: -1,
     note: '',
     date: new Date(),
-    complete: false
+    complete: false,
+    hover: false
   };
   getNote(event: Note){
     this.note = event;

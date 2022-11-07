@@ -1,0 +1,11 @@
+.show{
+  visibility: block;
+}
+
+.hidden{
+  visibility: hidden;
+}
+
+.changeColor{
+  @apply shadow-xl
+}

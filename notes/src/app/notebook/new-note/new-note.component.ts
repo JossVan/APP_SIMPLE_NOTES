@@ -25,9 +25,11 @@ export class NewNoteComponent implements OnInit {
         id: this.count,
         note: this.note,
         date: new Date(),
-        complete: false
+        complete: false,
+        hover: false
       }
       this.count++;
+      this.note = '';
       this.sendNote.emit(newNote);
     }
 
