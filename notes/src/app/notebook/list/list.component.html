@@ -9,8 +9,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td class="text-white text-center" style="width: 70%;">New note 1</td>
+      <tr >
+        <td class="text-white text-center" style="width: 70%;" data-tooltip-target="tooltip-incomplete">New note 1</td>
         <td style=" text-align: right">
           <input
           checked
@@ -20,11 +20,27 @@
           class="w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
           />
         </td>
-        <td style="width: 10%; text-align: right">
+        <td style="width: 20%; text-align: right">
           <a class="font-medium text-red-600 hover:underline"><i class="fa fa-trash" aria-hidden="true"></i></a>
         </td>
       </tr>
     </tbody>
   </table>
+  <div
+  id="tooltip-incomplete"
+  role="tooltip"
+  class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700"
+>
+Incomplete
+  <div class="tooltip-arrow" data-popper-arrow></div>
+</div>
 
+<div
+id="tooltip-complete"
+role="tooltip"
+class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700"
+>
+Complete
+<div class="tooltip-arrow" data-popper-arrow></div>
+</div>
 </ul>
