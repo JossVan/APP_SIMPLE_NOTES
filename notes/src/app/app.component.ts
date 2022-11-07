@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Note } from './interfaces/note.interface';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'notes';
+  date =( ((new Date()).toISOString()).split('T'))[0];
+  note: Note = {
+    id: -1,
+    note: '',
+    date: new Date(),
+    complete: false
+  };
+  getNote(event: Note){
+    this.note = event;
+  }
+
+
 }

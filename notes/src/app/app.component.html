@@ -7,10 +7,10 @@
         Notebook
       </h5>
       <div class="text-white text-center">
-        <span class="text-5xl font-extrabold tracking-tight">My date</span>
+        <span class="text-5xl font-extrabold tracking-tight">{{date}}</span>
       </div>
-      <app-list></app-list>
-      <app-new-note></app-new-note>
+      <app-list [notes]="note"></app-list>
+      <app-new-note (sendNote)="getNote($event)"></app-new-note>
     </div>
   </div>
 </div>

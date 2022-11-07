@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ListComponent } from './notebook/list/list.component';
 import { NewNoteComponent } from './notebook/new-note/new-note.component';
@@ -12,7 +12,8 @@ import { NewNoteComponent } from './notebook/new-note/new-note.component';
     NewNoteComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
