@@ -1,0 +1,18 @@
+<div class="py-24">
+  <div class="flex justify-center">
+    <div
+      class="p-4 w-full max-w-sm bg-rose-400 rounded-lg border shadow-md sm:p-8"
+    >
+      <h5 class="mb-4 text-xl font-medium text-white">
+        Notebook
+      </h5>
+      <div class="text-white text-center">
+        <span class="text-5xl font-extrabold tracking-tight">{{date}}</span>
+      </div>
+      <br>
+      <app-list [notes]="note"></app-list>
+      <br>
+      <app-new-note (sendNote)="getNote($event)"></app-new-note>
+    </div>
+  </div>
+</div>
