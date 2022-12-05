@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Note } from 'src/app/interfaces/note.interface';
+import { Note, NoteComplete } from 'src/app/interfaces/note.interface';
 
 @Component({
   selector: 'app-new-note',
@@ -9,8 +9,7 @@ import { Note } from 'src/app/interfaces/note.interface';
 export class NewNoteComponent implements OnInit {
 
   note: string = '';
-  count: number = 0;
-  @Output() sendNote = new EventEmitter<Note>();
+  @Output() sendNote = new EventEmitter<NoteComplete>();
 
   constructor() { }
 
@@ -21,14 +20,14 @@ export class NewNoteComponent implements OnInit {
   submit(){
 
     if(this.note != ''){
-      let newNote : Note = {
-        id: this.count,
+      let newNote : NoteComplete = {
+        id: -1,
         note: this.note,
-        date: new Date(),
+        creation_date: new Date(),
         complete: false,
         hover: false
       }
-      this.count++;
+      
       this.note = '';
       this.sendNote.emit(newNote);
     }

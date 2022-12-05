@@ -1,5 +1,6 @@
-import { Note } from './interfaces/note.interface';
+import { Note, NoteComplete } from './interfaces/note.interface';
 import { Component, Output, EventEmitter } from '@angular/core';
+import { NotesService } from './services/notes.service';
 
 @Component({
   selector: 'app-root',
@@ -9,15 +10,32 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class AppComponent {
   title = 'notes';
   date =( ((new Date()).toISOString()).split('T'))[0];
+
+  constructor(private noteService: NotesService){
+
+  }
   note: Note = {
-    id: -1,
     note: '',
-    date: new Date(),
+    creation_date: new Date(),
     complete: false,
     hover: false
   };
-  getNote(event: Note){
+
+  noteComplete: NoteComplete = {
+    id : -1,
+    note: '',
+    creation_date: new Date(),
+    complete: false,
+    hover: false
+  };
+
+  getNote(event: NoteComplete){
     this.note = event;
+    this.noteService.saveNote(this.note).subscribe(result=>{
+      if(result.success){
+        this.noteComplete = event;
+      }
+    })
   }
 
 

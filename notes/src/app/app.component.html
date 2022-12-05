@@ -10,7 +10,7 @@
         <span class="text-5xl font-extrabold tracking-tight">{{date}}</span>
       </div>
       <br>
-      <app-list [notes]="note"></app-list>
+      <app-list [notes]="noteComplete"></app-list>
       <br>
       <app-new-note (sendNote)="getNote($event)"></app-new-note>
     </div>

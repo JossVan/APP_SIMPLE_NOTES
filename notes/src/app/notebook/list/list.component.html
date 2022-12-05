@@ -22,7 +22,7 @@
           </div>
           <div style="text-align: left" *ngIf="item.hover">
             <a class="font-medium text-white hover:underline cursor-pointer"
-            (click)="delete(i)"
+            (click)="delete(item.id,i)"
             ><i class="fa fa-trash" aria-hidden="true"></i></a>
           </div>
 

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Note } from 'src/app/interfaces/note.interface';
+import { Note, NoteComplete } from 'src/app/interfaces/note.interface';
+import { NotesService } from 'src/app/services/notes.service';
 import swal from'sweetalert2';
 
 @Component({
@@ -9,33 +10,38 @@ import swal from'sweetalert2';
 })
 export class ListComponent implements OnInit {
 
-  note: Note | undefined;
-  listNotes : Array<Note> = new Array<Note>();
+  note: NoteComplete | undefined;
+  listNotes : Array<NoteComplete> = new Array<NoteComplete>();
   showButton = false;
 
-  @Input() set notes(value: Note){
+  @Input() set notes(value: NoteComplete){
     this.note = value;
-    if(this.note.note != ''){
-      this.listNotes.push(this.note);
-    }
+    this.getNotes();
   }
 
-  constructor() { }
+  constructor(private noteService: NotesService) { }
 
   ngOnInit(): void {
   }
 
-  onchange(id:number, index: number){
-    let noteSelected = this.listNotes[index];
+  onchange(id:number,index:number){
+
+    
+    let noteSelected = (this.listNotes.filter(note=> note.id === id))[0];
     noteSelected.id == id? noteSelected.complete = !noteSelected.complete: noteSelected.complete;
 
-    noteSelected.complete?
-    this.listNotes.unshift(this.listNotes.splice(index, 1)[0]): this.listNotes.push(this.listNotes.splice(index, 1)[0]);;
-    console.log('-------------- Acción del checkbox ----------------')
-    console.log(this.listNotes);
+    this.noteService.updateCompleteNote(noteSelected.id,noteSelected.complete).subscribe(result=>{
+      if(result.success){
+        noteSelected.complete?
+        this.listNotes.unshift(this.listNotes.splice(index, 1)[0]): this.listNotes.push(this.listNotes.splice(index, 1)[0]);
+        console.log('-------------- Acción del checkbox ----------------')
+        console.log(this.listNotes);
+      }
+    });
+    
   }
 
-  delete(index:number){
+  delete(id:number,index:number){
 
     swal.fire({
       title: 'Eliminar nota',
@@ -47,13 +53,34 @@ export class ListComponent implements OnInit {
       confirmButtonText: 'Si, quiero eliminar esta nota'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.isConfirmed(index);
+        this.isConfirmed(id,index);
       }
     })
   }
 
-  isConfirmed(index:number){
+  isConfirmed(id:number, index:number){
     this.listNotes.splice(index,1);
+    this.noteService.deteleNote(id).subscribe(result=>{
+      if(result.success){
+        this.isDelete();
+      }
+    });
+  }
+
+  getNotes(){
+    this.noteService.getNotes().subscribe(result=>{
+      if(result.status == 404){
+        console.log(result);
+      }else{
+        result.notas.map((item:any)=>{
+          item.complete == 1? item.complete = true: item.complete = false;
+        });
+        this.listNotes = result.notas;
+      }
+    })
+  }
+
+  isDelete(){
     console.log('-------------- Eliminar un elemento ----------------')
     console.log(this.listNotes);
     swal.fire('¡Nota eliminada!', '', 'success');
